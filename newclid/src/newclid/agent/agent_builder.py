@@ -5,6 +5,8 @@ from newclid.agent.agents_interface import DeductiveAgent
 from newclid.agent.ddarn import DDARN
 from newclid.agent.follow_deductions import FollowDeductions
 from newclid.agent.human_agent import HumanAgent
+from newclid.agent.llm_agent import LLMAgent
+from py_yuclid.yuclid_adapter import YuclidAdapter
 
 
 def make_agent(agent_name: str | AgentName, **kwargs: Any) -> DeductiveAgent:
@@ -14,4 +16,8 @@ def make_agent(agent_name: str | AgentName, **kwargs: Any) -> DeductiveAgent:
         case AgentName.HUMAN_AGENT:
             return HumanAgent()
         case AgentName.FOLLOW_DEDUCTIONS:
-            return FollowDeductions(deductions_provider=kwargs["deductions_provider"])
+            provider = kwargs.get("deductions_provider") or YuclidAdapter()
+            return FollowDeductions(deductions_provider=provider)
+        case AgentName.LLM_AGENT:
+            provider = kwargs.get("deductions_provider") or YuclidAdapter()
+            return LLMAgent(deductions_provider=provider, **kwargs)

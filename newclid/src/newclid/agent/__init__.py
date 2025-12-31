@@ -6,7 +6,9 @@ from pydantic import Field
 
 from newclid.agent.ddarn import DDARNStats
 from newclid.agent.follow_deductions import FollowDeductionsStats
+from newclid.agent.llm_agent import LLMAgentStats
 
 AgentStats = Annotated[
-    DDARNStats | FollowDeductionsStats, Field(discriminator="agent_type")
+    DDARNStats | FollowDeductionsStats | LLMAgentStats,
+    Field(discriminator="agent_type"),
 ]
