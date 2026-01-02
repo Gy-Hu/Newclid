@@ -31,20 +31,7 @@ namespace Yuclid {
     [[nodiscard]] std::string name() const override;
     [[nodiscard]] std::vector<Point> points() const override;
 
-    [[nodiscard]] auto permutations() const {
-#if HAVE_ZIP_TRANSFORM
-      return 
-        std::views::zip_transform([](const Collinear &left, const Collinear &right) -> Thales {
-          return {left, right};
-        }, m_left.permutations(), m_right.permutations());
-#else
-      return
-        std::views::zip(m_left.permutations(), m_right.permutations())
-        | std::views::transform([](const auto &arg) -> Thales {
-          return {std::get<0>(arg), std::get<1>(arg)};
-        });
-#endif
-    }
+    [[nodiscard]] std::vector<Thales> permutations() const;
 
     [[nodiscard]] std::unique_ptr<Statement> normalize() const override;
     [[nodiscard]] bool check_nondegen() const override;

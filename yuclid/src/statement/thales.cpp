@@ -47,8 +47,21 @@ namespace Yuclid {
     };
   }
 
+  vector<Thales> Thales::permutations() const {
+    const auto left_perms = m_left.permutations();
+    const auto right_perms = m_right.permutations();
+    const size_t n = min(left_perms.size(), right_perms.size());
+    vector<Thales> out;
+    out.reserve(n);
+    for (size_t i = 0; i < n; ++i) {
+      out.emplace_back(left_perms[i], right_perms[i]);
+    }
+    return out;
+  }
+
   unique_ptr<Statement> Thales::normalize() const {
-    return make_unique<Thales>(ranges::min(permutations()));
+    auto perms = permutations();
+    return make_unique<Thales>(*min_element(perms.begin(), perms.end()));
   }
 
   Parallel Thales::para_ab() const {
@@ -72,10 +85,10 @@ namespace Yuclid {
   }
 
   bool Thales::check_nondegen() const {
-    for (auto [left, right] :
-           views::zip(m_left.cyclic_permutations(),
-                      m_right.cyclic_permutations())) {
-      if (left.is_between() != right.is_between()) {
+    const auto left_perms = m_left.cyclic_permutations();
+    const auto right_perms = m_right.cyclic_permutations();
+    for (size_t i = 0; i < left_perms.size() && i < right_perms.size(); ++i) {
+      if (left_perms[i].is_between() != right_perms[i].is_between()) {
         return false;
       }
     }

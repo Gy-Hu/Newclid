@@ -46,7 +46,6 @@
 #include "type/triangle.hpp"
 #include "typedef.hpp"
 #include <algorithm>
-#include <format>
 #include <memory>
 #include <sstream>
 #include <stdexcept>
@@ -134,7 +133,7 @@ namespace Yuclid {
                                              get_slope_angle(sstream),
                                              get_slope_angle(sstream)));
         } else {
-          throw runtime_error(format("Incorrect line {}, unexpected number of spaces", line));
+          throw runtime_error("Incorrect line \"" + line + "\", unexpected number of spaces");
         }
       } else if (statement == "eqratio") {
         act(make_unique<EqualRatios>(get_dist(sstream), get_dist(sstream),

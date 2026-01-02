@@ -35,9 +35,12 @@ namespace Yuclid {
    *   input/output format, input files etc;
    * - *solver options* allow users to choose
    *   what AR tables are enabled etc.
-   */
+  */
   class Config {
   public:
+    template <typename>
+    inline static constexpr bool always_false = false;
+
     /**
      * @brief Mode of operation for the application.
      *

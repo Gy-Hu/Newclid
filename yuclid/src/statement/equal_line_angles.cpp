@@ -13,7 +13,6 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 */
-#include <format>
 #include <memory>
 #include <ostream>
 #include <string>
@@ -84,11 +83,10 @@ namespace Yuclid {
   }
 
   ostream &EqualLineAngles::print(ostream &out) const {
-    return out << format("∠({}{}, {}{}) = ∠({}{}, {}{})",
-                         m_left_left.left().name(), m_left_left.right().name(),
-                         m_left_right.left().name(), m_left_right.right().name(),
-                         m_right_left.left().name(), m_right_left.right().name(),
-                         m_right_right.left().name(), m_right_right.right().name());
+    return out << "∠(" << m_left_left.left().name() << m_left_left.right().name()
+               << ", " << m_left_right.left().name() << m_left_right.right().name()
+               << ") = ∠(" << m_right_left.left().name() << m_right_left.right().name()
+               << ", " << m_right_right.left().name() << m_right_right.right().name() << ")";
   }
 
 } // namespace Yuclid    

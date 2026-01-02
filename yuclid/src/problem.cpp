@@ -80,7 +80,7 @@ namespace Yuclid {
         return {ind, this};
       }
     }
-    throw runtime_error(format("Point named {} not found in the problem", name));
+    throw runtime_error("Point named " + name + " not found in the problem");
   }
 
 } // namespace Yuclid

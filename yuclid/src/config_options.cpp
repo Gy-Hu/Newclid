@@ -70,7 +70,7 @@ namespace Yuclid {
     } else if constexpr (std::is_same_v<VarT, SlopeAngle>) {
       return true; // SlopeAngle is always enabled
     } else {
-      static_assert(false, "Type is unsupported");
+      static_assert(Config::always_false<VarT>, "Type is unsupported");
     }
   }
 

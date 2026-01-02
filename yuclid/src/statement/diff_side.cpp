@@ -17,7 +17,6 @@
 #include "statement/statement.hpp"
 #include "type/point.hpp"
 #include "typedef.hpp"
-#include <format>
 #include <memory>
 #include <ostream>
 #include <string>
@@ -74,8 +73,9 @@ namespace Yuclid {
   }
 
   std::ostream &DiffSignDot::print(std::ostream &out) const {
-    return out << format("{} on the other side of [{},{}] as {} of [{}, {}]",
-                         m_a.name(), m_b.name(), m_c.name(), m_d.name(), m_e.name(), m_f.name());
+    return out << m_a.name() << " on the other side of ["
+               << m_b.name() << ',' << m_c.name() << "] as "
+               << m_d.name() << " of [" << m_e.name() << ", " << m_f.name() << "]";
   }
 
 } // namespace Yuclid

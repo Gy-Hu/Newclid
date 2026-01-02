@@ -40,7 +40,6 @@
 #include <boost/preprocessor/seq/for_each.hpp>
 #include <cassert>
 #include <cstddef>
-#include <format>
 #include <map>
 #include <memory>
 #include <optional>
@@ -81,8 +80,9 @@ namespace Yuclid {
   bool DDARSolver::run_level(const Point &max_pt) {
     // Store the number of established statements before this level.
     size_t num_statements = m_established_statements.size();
-    BOOST_LOG_TRIVIAL(info) << format("Running level {}, starting with {} statements",
-                                      m_level, num_statements);
+    BOOST_LOG_TRIVIAL(info) << "Running level " << m_level
+                            << ", starting with " << num_statements
+                            << " statements";
     // Try to make progress on each theorem.
     size_t const n = m_theorem_applications.size();
     for (size_t i = 0; i < n; ++ i) {
@@ -108,9 +108,11 @@ namespace Yuclid {
       m_solved = b;
     }
 
-    BOOST_LOG_TRIVIAL(info) << format("Proved {} new facts, {} total",
-                                      m_established_statements.size() - num_statements,
-                                      m_established_statements.size());
+    BOOST_LOG_TRIVIAL(info) << "Proved "
+                            << (m_established_statements.size() - num_statements)
+                            << " new facts, "
+                            << m_established_statements.size()
+                            << " total";
     ++ m_level;
     return num_statements < m_established_statements.size();
   }
@@ -208,7 +210,7 @@ namespace Yuclid {
       eqns = &m_eqns_slope_angle;
       sys = &m_system_slope_angle;
     } else {
-      static_assert(false, "Variable type is not supported");
+      static_assert(Config::always_false<VarT>, "Variable type is not supported");
     }
     auto const [coeff, eqn] = opt_eqn.value().normalize();
     auto red_eq = ReducedEquation(eqn, sys);

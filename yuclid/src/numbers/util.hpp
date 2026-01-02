@@ -17,7 +17,7 @@
 
 #include "typedef.hpp"
 #include <array>
-#include <format>
+#include <sstream>
 #include <utility>
 #include <boost/algorithm/algorithm.hpp>
 
@@ -113,15 +113,17 @@ namespace Yuclid {
   }
 
   inline std::string rat2string(const Rat &q) {
-    return std::format("{}/{}",
-                       static_cast<UnsafeInt>(q.numerator()),
-                       static_cast<UnsafeInt>(q.denominator()));
+    std::ostringstream oss;
+    oss << static_cast<UnsafeInt>(q.numerator()) << '/'
+        << static_cast<UnsafeInt>(q.denominator());
+    return oss.str();
   }
 
   inline std::string nnrat2string(const NNRat &q) {
-    return std::format("{}/{}",
-                       static_cast<UnsafeNat>(q.numerator()),
-                       static_cast<UnsafeNat>(q.denominator()));
+    std::ostringstream oss;
+    oss << static_cast<UnsafeNat>(q.numerator()) << '/'
+        << static_cast<UnsafeNat>(q.denominator());
+    return oss.str();
   }
 
   inline NNRat rat2nnrat(const Rat &q) {

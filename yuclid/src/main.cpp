@@ -34,7 +34,6 @@
 #include <boost/log/utility/setup/console.hpp>
 
 
-#include <format>
 #include <iostream>     // For std::cout, std::cerr
 #include <fstream>
 #include <stdexcept>    // For std::runtime_error
@@ -85,7 +84,7 @@ namespace {
 
   void match_theorems(const Problem &prob, const Config &config) {
     TheoremMatcher matcher(&prob, &config.solver());
-    BOOST_LOG_TRIVIAL(info) << std::format("Matched {} theorems", matcher.theorems().size());
+    BOOST_LOG_TRIVIAL(info) << "Matched " << matcher.theorems().size() << " theorems";
     if (config.global().use_json()) {
       boost::json::value const jv = boost::json::value_from(matcher.theorems());
       cout << boost::json::serialize(jv) << '\n';

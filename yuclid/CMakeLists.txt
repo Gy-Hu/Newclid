@@ -5,7 +5,8 @@ project(Yuclid
   LANGUAGES CXX)
 enable_testing()
 
-set(CMAKE_CXX_STANDARD 23)
+# GCC 12 fully supports C++20; avoid newer dialects to keep compatibility.
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
@@ -15,7 +16,7 @@ function(yuclid_check_cxx_feature feature_name source_file description)
 
     try_compile(${feature_name}
       SOURCES "${source_file}"
-      CXX_STANDARD 23
+      CXX_STANDARD 20
       LOG_DESCRIPTION "${description}"
       ${ARGN}
     )
@@ -28,12 +29,6 @@ function(yuclid_check_cxx_feature feature_name source_file description)
     endif()
   endif()
 endfunction()
-
-yuclid_check_cxx_feature(
-  HAVE_ZIP_TRANSFORM
-  "${CMAKE_CURRENT_SOURCE_DIR}/cmake/zip_transform.cpp"
-  "std::views::zip_transform"
-)
 
 if(MSVC)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4 /WX")
