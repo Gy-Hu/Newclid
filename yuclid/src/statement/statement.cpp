@@ -52,7 +52,7 @@ namespace Yuclid {
   }
 
   boost::json::object Statement::to_json() const {
-    std::vector<Point> v = points() | ranges::to<vector>();
+    std::vector<Point> v = points() | Yuclid::ranges_ext::to_vector;
     return {
       {"name", name()},
       {"points", boost::json::value_from(v)}

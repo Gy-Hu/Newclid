@@ -232,14 +232,14 @@ namespace Yuclid {
     case PROVED_BY_THEOREM:
       return m_solver->theorem_applications()[m_theorem.value()].hypotheses();
     case PROVED_AR_DIST:
-      return m_dist_eqn.second->statement_dependencies() | ranges::to<vector>();
+      return m_dist_eqn.second->statement_dependencies() | Yuclid::ranges_ext::to_vector;
     case PROVED_AR_SQUARE_DIST:
-      return m_squared_dist_eqn.second->statement_dependencies() | ranges::to<vector>();
+      return m_squared_dist_eqn.second->statement_dependencies() | Yuclid::ranges_ext::to_vector;
     case PROVED_AR_RATIO:
-      return m_sin_or_dist_eqn.second->statement_dependencies() | ranges::to<vector>();
+      return m_sin_or_dist_eqn.second->statement_dependencies() | Yuclid::ranges_ext::to_vector;
       break;
     case PROVED_AR_ANGLE:
-      return m_slope_angle_eqn.second->statement_dependencies() | ranges::to<vector>();
+      return m_slope_angle_eqn.second->statement_dependencies() | Yuclid::ranges_ext::to_vector;
     }
     return {};
   }

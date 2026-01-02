@@ -109,7 +109,7 @@ namespace Yuclid {
 
   boost::json::object RatioDistEquals::to_json() const {
     std::vector<string> args =
-      points() | views::transform(&Point::name) | ranges::to<vector>();
+      points() | views::transform(&Point::name) | Yuclid::ranges_ext::to_vector;
     args.push_back(nnrat2string(m_ratio));
     return {
       {"name", name()},

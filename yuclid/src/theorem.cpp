@@ -400,11 +400,11 @@ namespace Yuclid {
     thm.m_hypotheses =
       m_conclusions
       | views::transform([](const unique_ptr<Statement>& p) { return p->clone(); })
-      | ranges::to<vector>();
+      | Yuclid::ranges_ext::to_vector;
     thm.m_conclusions =
       m_hypotheses
       | views::transform([](const unique_ptr<Statement>& p) { return p->clone(); })
-      | ranges::to<vector>();
+      | Yuclid::ranges_ext::to_vector;
     return thm;
   }
 
@@ -630,11 +630,11 @@ namespace Yuclid {
     thm.m_hypotheses =
       m_hypotheses
       | views::transform([](const unique_ptr<Statement>& p) { return p->clone(); })
-      | ranges::to<vector>();
+      | Yuclid::ranges_ext::to_vector;
     thm.m_conclusions =
       m_conclusions
       | views::transform([](const unique_ptr<Statement>& p) { return p->clone(); })
-      | ranges::to<vector>();
+      | Yuclid::ranges_ext::to_vector;
     return thm;
   }
 
@@ -689,11 +689,11 @@ namespace Yuclid {
     thm.m_hypotheses =
       m_hypotheses
       | views::transform([](const unique_ptr<Statement>& p) { return p->normalize(); })
-      | ranges::to<vector>();
+      | Yuclid::ranges_ext::to_vector;
     thm.m_conclusions =
       m_conclusions
       | views::transform([](const unique_ptr<Statement>& p) { return p->normalize(); })
-      | ranges::to<vector>();
+      | Yuclid::ranges_ext::to_vector;
     return thm;
   }
 

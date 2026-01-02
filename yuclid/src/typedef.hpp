@@ -20,6 +20,8 @@
 #include <boost/container_hash/hash.hpp>
 #include <boost/safe_numerics/safe_integer.hpp>
 #endif
+#include <ranges>
+#include <vector>
 #include "numbers/rational.hpp"
 #include <variant>
 
@@ -88,6 +90,37 @@ namespace Yuclid {
     SquaredDist,
     Triangle,
     bool>;
+
+  /**
+   * Lightweight polyfill for C++23 std::ranges::to that converts any input
+   * range into a std::vector while preserving reservation when the size is
+   * known. This lets us keep the piping style used throughout the codebase
+   * even though libstdc++13 on Ubuntu 22.04 does not yet ship
+   * std::ranges::to.
+   */
+  namespace ranges_ext {
+    struct to_vector_fn {
+      template <std::ranges::input_range R>
+      auto operator()(R&& r) const {
+        using value_type = std::ranges::range_value_t<R>;
+        std::vector<value_type> out;
+        if constexpr (std::ranges::sized_range<R>) {
+          out.reserve(std::ranges::size(r));
+        }
+        for (auto&& elem : r) {
+          out.emplace_back(std::forward<decltype(elem)>(elem));
+        }
+        return out;
+      }
+
+      template <std::ranges::input_range R>
+      friend auto operator|(R&& r, const to_vector_fn& fn) {
+        return fn(std::forward<R>(r));
+      }
+    };
+
+    inline constexpr to_vector_fn to_vector{};
+  } // namespace ranges_ext
 }
 
 namespace boost {

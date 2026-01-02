@@ -194,7 +194,7 @@ namespace Yuclid {
       | views::transform([&multiplier](const auto& term) {
         return make_pair(term.first, term.second * multiplier);
       })
-      | ranges::to<vector>();
+      | Yuclid::ranges_ext::to_vector;
     return result;
   }
 

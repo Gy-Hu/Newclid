@@ -47,9 +47,9 @@ namespace Yuclid {
 
   vector<Point> SinOrDist::points() const {
     if (holds_alternative<Angle>(m_data)) {
-      return angle().points() | ranges::to<vector>();
+      return angle().points() | Yuclid::ranges_ext::to_vector;
     }
-    return get_squared_dist().points() | ranges::to<vector>();
+    return get_squared_dist().points() | Yuclid::ranges_ext::to_vector;
   }
 
   bool SinOrDist::check_nondegen() const {

@@ -17,6 +17,7 @@
 
 #include "typedef.hpp"
 #include <array>
+#include <format>
 #include <utility>
 #include <boost/algorithm/algorithm.hpp>
 

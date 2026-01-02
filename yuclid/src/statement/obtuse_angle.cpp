@@ -40,7 +40,7 @@ namespace Yuclid {
   }
 
   vector<Point> ObtuseAngle::points() const {
-    return m_angle.points() | ranges::to<vector>();
+    return m_angle.points() | Yuclid::ranges_ext::to_vector;
   }
 
   unique_ptr<Statement> ObtuseAngle::normalize() const {

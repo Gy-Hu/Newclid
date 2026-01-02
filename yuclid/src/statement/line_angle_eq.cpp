@@ -89,7 +89,7 @@ namespace Yuclid {
 
   boost::json::object LineAngleEq::to_json() const {
     std::vector<string> args =
-      points() | views::transform(&Point::name) | ranges::to<vector>();
+      points() | views::transform(&Point::name) | Yuclid::ranges_ext::to_vector;
     args.push_back(rat2string(m_rhs.number()));
     return {
       {"name", name()},
